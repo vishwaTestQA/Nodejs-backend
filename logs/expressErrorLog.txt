@@ -18,3 +18,47 @@
 20250101	22:24:16	960524fc-9562-4c85-854f-80f1c244eb3b	TypeError: Cannot read properties of undefined (reading 'id')
 20250101	22:24:59	b3fcb3f0-7389-4dd0-86a1-ca37d950fb8e	TypeError: Cannot read properties of undefined (reading 'id')
 20250101	22:25:11	e229e7ab-d766-484d-8c07-508add8233de	TypeError: Cannot read properties of undefined (reading 'id')
+20250102	15:25:49	b7606d3b-9e58-407c-8bc0-d72b92e5478d	ReferenceError: authorization is not defined
+20250102	15:26:13	680f1094-fa36-4490-86e1-fa0aed3cf6eb	ReferenceError: authorization is not defined
+20250102	15:29:46	8d841dc0-edb1-4e22-bf1b-485eb3215218	ReferenceError: authorization is not defined
+20250102	15:33:22	8efdd21f-ca4d-46bb-bc4c-6e7a3eb45e54	ReferenceError: authorization is not defined
+20250102	15:33:41	239d7d3c-8adc-46d5-aa72-b5f55f7548f3	ReferenceError: authorization is not defined
+20250102	15:56:39	887ff834-4eca-41a0-9e8e-de26fa8c5cdd	ReferenceError: authorization is not defined
+20250102	15:58:02	95eb97bf-17d3-416e-afb2-a94da9c1c7ef	ReferenceError: authorization is not defined
+20250102	15:58:19	9d176ba5-487f-4986-a6e1-c61d213e2b42	ReferenceError: authorization is not defined
+20250102	15:58:20	935d30d9-a068-4271-a1e0-d040a9a2a9c5	ReferenceError: authorization is not defined
+20250102	15:58:20	3a41d0d8-59e9-417c-9ccc-6365c6831540	ReferenceError: authorization is not defined
+20250102	15:58:24	9afa2993-ad0c-48e1-bf6b-295180f65679	ReferenceError: authorization is not defined
+20250102	15:58:25	0e7f67bc-4e23-488b-a089-27a4981fe145	ReferenceError: authorization is not defined
+20250102	15:58:26	845fc662-6dc9-48ba-b872-d86d37576d04	ReferenceError: authorization is not defined
+20250102	15:58:27	b026086b-5cee-4ce6-be4e-7a9110adc44f	ReferenceError: authorization is not defined
+20250102	15:58:29	8b2c7a72-3489-4d60-b436-0355d7180897	ReferenceError: authorization is not defined
+20250102	15:58:30	e73bb89a-baeb-42e3-8aa2-e7f27a598b8c	ReferenceError: authorization is not defined
+20250102	15:58:31	f8d2f580-c67a-4a5b-ab37-525e2960e711	ReferenceError: authorization is not defined
+20250102	15:58:56	074d8189-3b34-435b-aef6-9cc5d08145c4	ReferenceError: authorization is not defined
+20250102	15:58:57	36aab792-d99e-4471-a24a-f193dc69e39a	ReferenceError: authorization is not defined
+20250102	15:58:57	5a0e12d8-7c53-4dba-9528-83815d3fdc38	ReferenceError: authorization is not defined
+20250102	15:58:57	39201455-51a4-476a-ab03-07531e9f9e2d	ReferenceError: authorization is not defined
+20250102	15:58:57	6571753e-9265-4c6d-835e-2f7e99ef3fdd	ReferenceError: authorization is not defined
+20250102	15:58:57	c8fb716b-6b04-4e21-ad2f-cea74db30bf6	ReferenceError: authorization is not defined
+20250102	15:58:58	6034cb76-0101-49e6-bae8-720ba507baa8	ReferenceError: authorization is not defined
+20250102	15:58:59	3093242e-12e4-4764-abb7-363c2c7d9e61	ReferenceError: authorization is not defined
+20250102	15:58:59	9e987d2b-4c74-436b-b23a-a738531ac4da	ReferenceError: authorization is not defined
+20250102	15:58:59	787e12d2-d1eb-46af-a28c-87e91a09f0e3	ReferenceError: authorization is not defined
+20250102	15:59:00	c71c5b1d-2671-478b-838e-c79f3284d05d	ReferenceError: authorization is not defined
+20250102	15:59:00	f37bedc7-fd84-4015-a814-6d87a24f20b4	ReferenceError: authorization is not defined
+20250102	15:59:00	d8000dd6-7a29-40e8-8884-47af1833bf49	ReferenceError: authorization is not defined
+20250102	15:59:01	75758355-8568-4178-af1c-f9a08ab34556	ReferenceError: authorization is not defined
+20250102	15:59:01	cdc757f0-dcc4-4d0b-a380-ca7d7469b857	ReferenceError: authorization is not defined
+20250102	15:59:01	6cfebb15-e9f2-4994-9217-07784a205729	ReferenceError: authorization is not defined
+20250102	15:59:01	4e238b1d-db44-46d9-baba-a769d4faeb2c	ReferenceError: authorization is not defined
+20250102	15:59:02	67bf7569-ff7e-4bfc-a072-12cdc1a4311b	ReferenceError: authorization is not defined
+20250102	16:01:38	e1578203-e98d-4bdf-9257-108c63aaa592	ReferenceError: authorization is not defined
+20250102	16:06:39	2c67a7fa-0cb9-4d0f-a180-e9d47f46f227	ReferenceError: authorization is not defined
+20250102	16:07:17	e72772ce-56d9-441b-a323-d2b7381fa211	ReferenceError: authorization is not defined
+20250102	16:07:45	cd1ee0bf-61e4-439e-9af0-bbd246e08fe9	ReferenceError: sendStatus is not defined
+20250102	16:07:46	9c9620c2-2b73-4fd9-a117-06a99539b4c7	ReferenceError: sendStatus is not defined
+20250102	23:45:10	049b6e89-75cb-48da-a959-91f4424ee1db	TypeError: Cannot convert object to primitive value
+20250102	23:45:27	ffa1b912-0268-4358-aebe-98e639cca37d	TypeError: req.cookies.toString is not a function
+20250102	23:45:35	548ac7f3-989a-41ae-828a-9e67a778d49e	TypeError: req.cookies.toString is not a function
+20250102	23:45:54	7a3a3861-b437-4302-a064-24a18c6f5688	TypeError: req.cookies.toString is not a function

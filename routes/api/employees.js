@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const employeeController = require('../../controllers/employeesController');
+// const verifyJWT = require('../../middleware/verifyJWT');
 
 
 router.route('/')

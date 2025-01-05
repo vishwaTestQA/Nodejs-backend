@@ -11,7 +11,11 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const https = require('https')
 const fs = require('fs');
+const { default: mongoose } = require('mongoose');
+const connectDB = require('./config/dbConn');
+require('dotenv').config();
 
+connectDB()
 
 app.use(logger);
 
@@ -29,14 +33,23 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/',require('./routes/root')); 
 
- 
-
 //if a req like this (eg: http://localhost:3500/employees) then this routes to the folder 
 
 app.use('/subdir',require('./routes/subdir'));
 app.use('/register', require('./routes/registration'))
-app.use('/auth', require('./routes/auth')); //once the auth expires it then send req to /refresh
-app.use('/refresh', require('./routes/refresh'))
+// app.use('/registrationWithDB', (req,res)=>{
+//   req.body.user = "jerry";
+//   console.log(req.body);
+//   next();
+// })
+app.use('/registrationWithDB', require('./routes/registrationDB'))
+// app.use('/auth', require('./routes/auth')); //once the auth expires it then send req to /refresh
+// app.use('/refresh', require('./routes/refresh'))
+
+app.use('/authWithRoles', require('./routes/authWithRoles')); //once the auth expires it then send req to /refresh
+app.use('/authWithDB', require('./routes/authDB'));
+app.use('/refreshWithRoles', require('./routes/refreshWithRoles'))
+
 app.use('/logout', require('./routes/logout'))
 
 app.use(verifyJWT)
@@ -63,5 +76,8 @@ const sslServer = https.createServer(
   app
 )
 
-
-sslServer.listen(3443, ()=> console.log("started ssl server"))
+//listen only when db is connected
+mongoose.connection.once('open', ()=>{
+  console.log("connected");
+  sslServer.listen(3443, ()=> console.log("started ssl server"))
+})

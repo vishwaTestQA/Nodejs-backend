@@ -3,10 +3,10 @@ require('dotenv').config();
 
 //whatever req or whole route using this middleware then first the req comes inside and verify if the req has follwing requirments
 const verifyJWT = (req, res, next)=>{
-   const authHeader = req.headers['authorization']  //Bearer Token
-   if(!authHeader) return res.sendStatus(403); //not have token
+  //Bearer Token
+   const authHeader = req.headers.authorization || req.headers.authorization
+   if(!authHeader?.startsWith('Bearer ')) return res.sendStatus(401); //not have token
    const token = authHeader.split(' ')[1] //Token
-   console.log("authHeader", authHeader) 
    jwt.verify(
     token,
     process.env.ACCESS_TOKEN_SECRET,
@@ -15,9 +15,8 @@ const verifyJWT = (req, res, next)=>{
       console.log('err', err)
       if(err) return res.sendStatus(401); 
       
-      req.user = decoded.username;  //we have passed username to jwt
-      console.log("usernameDecoded", req.user)
-         // only if this condition satisifies it moves to next request(eg get or post etc)
+      req.user = decoded.userInfo.username;  //we have previously passed username to jwt
+      req.roles = decoded.userInfo.roles
       next(); 
     } 
    )

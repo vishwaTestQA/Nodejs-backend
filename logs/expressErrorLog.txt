@@ -62,3 +62,18 @@
 20250102	23:45:27	ffa1b912-0268-4358-aebe-98e639cca37d	TypeError: req.cookies.toString is not a function
 20250102	23:45:35	548ac7f3-989a-41ae-828a-9e67a778d49e	TypeError: req.cookies.toString is not a function
 20250102	23:45:54	7a3a3861-b437-4302-a064-24a18c6f5688	TypeError: req.cookies.toString is not a function
+20250104	16:03:53	aa19860b-db67-4e6b-a3dc-6e22b15af962	Error: Cannot set headers after they are sent to the client
+20250104	16:03:59	6d5275dd-756e-4c85-9e8b-71cbf4efed15	Error: Cannot set headers after they are sent to the client
+20250104	17:31:07	ac1e49f9-5987-4fed-a01b-d1a951fa96ae	TypeError: Cannot read properties of undefined (reading 'username')
+20250105	18:48:52	f6fe1c4b-3092-4c9b-bd41-24b2b894fae2	SyntaxError: Unexpected number in JSON at position 95 (line 6 column 21)
+20250105	18:49:06	69591be5-ce23-41bd-87c6-b6d16c293f9a	SyntaxError: Unexpected number in JSON at position 95 (line 6 column 21)
+20250105	18:51:33	cc095d63-4d8d-4923-9104-01e095f78832	SyntaxError: Unexpected number in JSON at position 95 (line 6 column 21)
+20250105	18:52:44	56a7680f-5839-4e83-bf6d-2cdb601ad122	SyntaxError: Unexpected number in JSON at position 94 (line 6 column 20)
+20250105	18:52:54	3851257a-af90-4b8f-abb6-df8ac90af831	SyntaxError: Unexpected number in JSON at position 94 (line 6 column 20)
+20250105	18:56:52	bf0c791f-2588-44ba-a18c-edea14bf721c	SyntaxError: Unexpected number in JSON at position 94 (line 6 column 20)
+20250105	18:56:56	36139698-6dd3-48e9-a9f3-21f26199ab35	SyntaxError: Unexpected number in JSON at position 94 (line 6 column 20)
+20250105	18:57:27	65dd065b-5f1e-4faa-94a8-de69f8843821	ReferenceError: next is not defined
+20250105	18:57:56	2dad8620-87be-4e8c-bb33-b22e258e2e98	ReferenceError: next is not defined
+20250105	18:58:57	2b7ccf94-6de6-4098-ac1c-e2195597b593	ReferenceError: next is not defined
+20250105	18:59:31	70e3e5f4-6c46-4ac0-ae67-26e2cc56058e	ReferenceError: next is not defined
+20250105	19:04:04	5cb5f272-8481-4593-a421-09848f67a20a	ReferenceError: next is not defined

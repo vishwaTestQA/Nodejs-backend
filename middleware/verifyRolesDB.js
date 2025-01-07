@@ -1,5 +1,4 @@
 const verifyRoles = (...ROLES_LIST) =>{
-  console.log(...ROLES_LIST)
   return (req, res, next) => {
     if(!req?.roles) return res.sendStatus(401);
     const rolesArr = [...ROLES_LIST];
@@ -7,10 +6,9 @@ const verifyRoles = (...ROLES_LIST) =>{
 
     //req.roles is an array of codes [201,101,301] based on the user
     //each route has some specific role to access eg for post atmost we need "editor":301 for delete need "admin":201 so whan calling a route it verifies the role it attached with
-    console.log("resp",req.roles, " ", rolesArr);
+
     const hasAccessToTheRoute = req.roles.map(role => rolesArr.includes(role)).find(val => val === true); 
- 
-    console.log("token",hasAccessToTheRoute);  // we only need true or false, 
+    console.log("accessCode",hasAccessToTheRoute);  // we only need true or false, 
     if(!hasAccessToTheRoute) return res.sendStatus(403);
     next();   //if its true then the req has access to the route so go ahead(next())
   }

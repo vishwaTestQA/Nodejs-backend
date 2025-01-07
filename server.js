@@ -48,12 +48,16 @@ app.use('/registrationWithDB', require('./routes/registrationDB'))
 
 app.use('/authWithRoles', require('./routes/authWithRoles')); //once the auth expires it then send req to /refresh
 app.use('/authWithDB', require('./routes/authDB'));
+
 app.use('/refreshWithRoles', require('./routes/refreshWithRoles'))
+app.use('/refreshWithDB', require('./routes/refreshDB'))
 
 app.use('/logout', require('./routes/logout'))
+app.use('/logoutWithDB', require('./routes/logoutDB'))
 
 app.use(verifyJWT)
 app.use('/employees', require('./routes/api/employees'))
+app.use('/employeesWithDB', require('./routes/api/employeesDB'))
 
 app.all('*', (req, res)=>{
   res.status(404); //assigning the status as 404

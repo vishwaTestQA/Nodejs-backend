@@ -15,6 +15,7 @@ const employeesSchema = new Schema({
    address:{
     city: {
       type:String,
+      required: true
     },
     phone:{
       type: [Number],

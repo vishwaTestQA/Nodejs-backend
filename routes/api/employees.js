@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const employeeController = require('../../controllers/employeesController');
+const employeeController = require('../../controllers/employees/employeesController');
 const verifyRoles = require('../../middleware/verifyRoles');
 // const verifyJWT = require('../../middleware/verifyJWT');
 const {ROLES_LIST} = require("../../config/rolesList");

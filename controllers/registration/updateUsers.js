@@ -1,7 +1,7 @@
 const Users = require('../../model/Users');
 const bcrypt = require('bcrypt');
 
-const handleRegistrationOnMongo = async (req, res) => {
+const handleUsersOnMongo = async (req, res) => {
   const {user, pswd} = req.body;
   console.log("comming", req.body);
   if(!user || !pswd) return res.send(400).json({"message":"username and password are required "});

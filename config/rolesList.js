@@ -1,7 +1,7 @@
 const ROLES_LIST = {
-  user: 201,
-  admin: 101,
-  editor: 301
+  user: 2001,
+  admin: 1001,
+  editor: 3001
 }
 
 module.exports = {ROLES_LIST}

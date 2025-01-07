@@ -1,28 +1,32 @@
-const data = {
-  employees: require('../public/json/employees.json'),
-  setEmployees: function(data){
-    this.employees = data
-  }
-};
+const Employees = require('../../model/Employees');
 
-
-const getAllEmployees = (req, res)=>{
-  res.status(200).json(data.employees);
+const getAllEmployees = async (req, res)=>{
+  const employees = await Employees.find();
+  if(!employees) return res.status(204).json({"message":"No data found"})
+  console.log(result);
+  res.status(200).json(result);
 } 
 
-const createNewEmployee = (req, res)=> {
-   //post req comming with body to create resource
-   const newEmpl = {
-    id: data.employees[data.employees.length-1].id + 1 || 1,
-    firstname: req.body.firstname, 
-    lastname: req.body.lastname      //urlencoding middleware is using for this
-   }
-   if(!newEmpl.firstname || !newEmpl.lastname){
+const createNewEmployee = async (req, res)=> {
+   
+   if(!req?.body?.firstname || !req?.body?.lastname){
     return res.status(400).json({"message": "First and Last name is required"})
    }
 
-   data.setEmployees([...data.employees, newEmpl]);
-   res.status(201).json(newEmpl);
+   try{
+    // const result = await Employees.create(req.body);  // we shouldnt give this becz any data may come apart from required
+    const result = await Employees.create({
+       firstname: req.body.firstname,
+       lastname: req.body.lastname,
+       address: req.body.address
+    });
+    console.log("newEmpl", result)
+     //if fails automaticaaly 500 error as we handled in server.js
+    res.status(201).json(newEmpl);
+   }catch(error){
+      console.log(error);
+   }
+ 
 }
 
 // const updateEmployee = (req, res)=>{

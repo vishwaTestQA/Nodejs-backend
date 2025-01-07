@@ -41,28 +41,17 @@ const handleAuthDB = async(req,res) =>{
     .select('password')
     .exec();
 
-    //  evaluatePassword 
-    // const match = bcrypt.compare(pswd, pa)
+    // evaluatePassword 
+    console.log("match? ", pswd, " ",result.password)
+    const match = bcrypt.compare(pswd, result.password)
 
-    // const result = await Users.findOne(
-    //   {username: user},
-    //   { projection: { password: 1, _id: 0 }}
-    // )
-    // console.log("pwd",result.password);
-
-     const match = pswd === result.password;
-     console.log("userrrrrrr",user);
     if(match){
       const result = await Users.findOne({username: user})
         .select('roles').exec();
         console.log("roles", result.roles);
       const rolesCodes =  Object.values(result.roles).filter(role => role!== 'undefined'|| role!==null);
-      console.log("rolesCodes", rolesCodes);
-
-
 
       // jwt.sign() accepts 3 args 1.payload, 2.token, 3.expiry
-      console.log("rolesCodes", rolesCodes);
       const accessToken = jwt.sign(
         {
           "userInfo":{                    //this info shared a decoded value
@@ -75,8 +64,6 @@ const handleAuthDB = async(req,res) =>{
          {expiresIn:'1h'}
       );
 
-      console.log('first time', jwt.decode(accessToken));
-
       const refreshToken =  jwt.sign(
         {"username": foundUser.username},
          process.env.REFRESH_TOKEN_SECRET,
@@ -84,17 +71,23 @@ const handleAuthDB = async(req,res) =>{
       );
 
       try{
-        const res = await Users.updateOne(
-          {username: user},
-          {'$set': {refreshToken: "tom"}}
-        )
+        foundUser.refreshToken = refreshToken;
+        const res = await foundUser.save();
+
+        // const res = await Users.updateOne(
+        //   {username: user},
+        //   {$set: {refreshToken: refreshToken}},
+        //   // {upsert:true},
+        //   // { multi: true }
+        //   { strict: false }
+        // )
         console.log("resRefresh", res);
       }catch(error){
          logEvents(`${error.message}`)
          return res.status(501).json({"message":"error"})
       }
     
-      res.cookie('jwt', refreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"none", secure:true})
+      res.cookie('jwt', refreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"none", secure:true}); // for thunderclinet secure:true not works
       res.json({accessToken});
     } else{
       res.sendStatus(401);  //unauthorized

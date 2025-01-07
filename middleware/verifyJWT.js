@@ -3,6 +3,7 @@ require('dotenv').config();
 
 //whatever req or whole route using this middleware then first the req comes inside and verify if the req has follwing requirments
 const verifyJWT = (req, res, next)=>{
+  console.log(req.headers);
   //Bearer Token
    const authHeader = req.headers.authorization || req.headers.authorization
    if(!authHeader?.startsWith('Bearer ')) return res.sendStatus(401); //not have token

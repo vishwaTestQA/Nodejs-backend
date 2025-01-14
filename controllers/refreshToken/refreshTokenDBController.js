@@ -22,7 +22,7 @@ const handleRefreshTokenWithDB = async (req, res) => {
 
   console.log(foundUserWithRefreshToken);
 
-  if (!foundUserWithRefreshToken) return res.sendStatus(403); //unauthorized
+  if (!foundUserWithRefreshToken) return res.sendStatus(403); //forbidden
 
   jwt.verify(
     refreshToken,
@@ -38,6 +38,7 @@ const handleRefreshTokenWithDB = async (req, res) => {
             "username": foundUserWithRefreshToken.username, // so no body can read it, 
                                           // anyway this jwt is secure
             "roles": roles,
+            //here we sending roles to check if the accToken has rights to access to the route, same accToken can be used in front end to get the roles using jwt decoder if we dont want to send roles through json
           }
         },
         process.env.ACCESS_TOKEN_SECRET,

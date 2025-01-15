@@ -5,13 +5,14 @@ const Users = require('../../model/Users');
 //we have array of refresh token can be used for multiple device
 const handleRefreshTokenWithDBRotation = async (req, res) => {
   const cookies = req.cookies;
+  console.log('cook', cookies.jwt)
   if (!cookies?.jwt) {
     return res.sendStatus(403);  //forbidden
   }
   const refreshToken = cookies?.jwt;
 
   //to send new one we need to delete the old one first
-  res.clearCookie('jwt',{httpOnly:true, sameSite:"none", secure:true}) //add secure:true 
+  res.clearCookie('jwt',{httpOnly:true, sameSite:"None"}) //add secure:true 
 
   // find the user holds the same token in mongodb
   //  const result = await Users.findOneAndUpdate(
@@ -82,11 +83,11 @@ const handleRefreshTokenWithDBRotation = async (req, res) => {
       );
 
       //saving refreshToken with current user
-      foundUserWithRefreshToken.refreshToken = [...newRefreshTokenArray, ...newRefreshToken];
+      foundUserWithRefreshToken.refreshToken = [...newRefreshTokenArray, newRefreshToken];
       const result = foundUserWithRefreshToken.save();
 
       //need to send back the cookie
-      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"None", secure:true}); // for thunderclinet secure:true not works
+      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"None"}); // for thunderclinet secure:true not works
 
       res.json({ roles, accessToken });  //can send the roles in json to frontend
 

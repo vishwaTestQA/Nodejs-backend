@@ -11,13 +11,13 @@ router.route('/')
   .get(employeesDBController.getAllEmployees)
   .post(verifyRoles(ROLES_LIST.editor, ROLES_LIST.admin), employeesDBController.createNewEmployee)
   .put(verifyRoles(ROLES_LIST.editor, ROLES_LIST.admin), employeesDBController.updateEmployee)
-//  .delete(verifyRoles(ROLES_LIST.admin), employeesDBController.deleteEmployee)
+ .delete(verifyRoles(ROLES_LIST.admin), employeesDBController.deleteEmployee)
 
 
 
 router.route("/:id")
    .get(employeesDBController.getEmployee)
-   
+
 router.route("/phone")
 .patch(verifyRoles(ROLES_LIST.editor, ROLES_LIST.admin),employeesDBController.updatePhone)  
 

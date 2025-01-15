@@ -10,8 +10,9 @@ const handleAuthRotationDB = async(req,res) =>{
   console.log(`cookies availble at login: ${JSON.stringify(cookies)}`)
   
   const {user, pswd} = req.body;
+  console.log("cred",  user, pswd);
   if(!user || !pswd) return res.status(400).json({"message": "username and passwords are required"})
-  const foundUser = await Users.findOne({username: user});
+  const foundUser = await Users.findOne({username: user}).exec();
   if(!foundUser) return res.sendStatus(401); //unauthorized
 
   // const result1 = await            //it will fetch an obj with id and password
@@ -20,20 +21,20 @@ const handleAuthRotationDB = async(req,res) =>{
   //   .select('password')
   //   .exec();
 
-  const result = await Users.findOne({username: user}).exec();   //it fetch the documents, we can use it later as well
+  // const result = await Users.findOne({username: user}).exec();   //it fetch the documents, we can use it later as well
 
     // evaluatePassword 
-    const match = bcrypt.compare(pswd, result.password)
+    const match = bcrypt.compare(pswd, foundUser.password)
 
     if(!match) return res.sendStatus(401);  //unauthorized
-    
+
       // const result = await Users.findOne({username: user})    //here agan we no need to fetch becz fetched 
       //                         .select('roles').exec();                             //alredy above
      
 
       // const rolesCodes =  Object.values(result.roles).filter(role => role!== 'undefined'|| role!==null);
 
-      const rolesCodes =  Object.values(result.roles).filter(Boolean);
+      const rolesCodes =  Object.values(foundUser.roles).filter(Boolean);
 
       // jwt.sign() accepts 3 args 1.payload, 2.token, 3.expiry
       const accessToken = jwt.sign(
@@ -58,10 +59,10 @@ const handleAuthRotationDB = async(req,res) =>{
       // 1) user may not logged out and request login after sometimes 
     
       let newRTArray = !cookies.jwt     //if user uses multiple device then returns list of [rt1, rt2] else []
-                              ? foundUser.refreshToken
-                              : foundUser.refreshToken.filter(rt => rt !== cookies.jwt)
+                         ? foundUser.refreshToken
+                         : foundUser.refreshToken.filter(rt => rt !== cookies.jwt)
 
-
+       console.log("newArr", newRTArray);
             //this point we found auth is comming with some refreshToken, so need to detect reuse
               // hackers may have stole rt and can use so need to check the validity 
             if(cookies?.jwt){
@@ -76,7 +77,7 @@ const handleAuthRotationDB = async(req,res) =>{
                              
       //  if we have rt but user found in db then its from the correct user, now we can update him a new rt
       try{
-        foundUser.refreshToken = [...newRTArray, ...newRefreshToken];
+        foundUser.refreshToken = [...newRTArray, newRefreshToken];
         const result = await foundUser.save();
 
         // const res = await Users.updateOne(
@@ -92,7 +93,7 @@ const handleAuthRotationDB = async(req,res) =>{
          return res.status(501).json({"message":"error"})
       }
     
-      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"none", secure:true}); // for thunderclinet secure:true not works
+      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"None"}); // for thunderclinet secure:true not works
       res.json({rolesCodes, accessToken});
 }
 

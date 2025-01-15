@@ -1,7 +1,7 @@
 const verifyRoles = (...ROLES_LIST) =>{
   console.log(...ROLES_LIST)
   return (req, res, next) => {
-    if(!req?.roles) return res.sendStatus(401);
+    if(!req?.roles) return res.sendStatus(401);  //unauthorized
     const rolesArr = [...ROLES_LIST];
     //incomming req can have 1 or more roles, but for the specific route we need to check the atmost role, so we map through to check if the specific role the req has, if it has then return true
 
@@ -11,7 +11,7 @@ const verifyRoles = (...ROLES_LIST) =>{
     const hasAccessToTheRoute = req.roles.map(role => rolesArr.includes(role)).find(val => val === true); 
  
     console.log("token",hasAccessToTheRoute);  // we only need true or false, 
-    if(!hasAccessToTheRoute) return res.sendStatus(403);
+    if(!hasAccessToTheRoute) return res.sendStatus(403);  //forbidden
     next();   //if its true then the req has access to the route so go ahead(next())
   }
 }

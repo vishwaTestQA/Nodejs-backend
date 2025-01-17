@@ -12,7 +12,7 @@ const handleRefreshTokenWithDBRotation = async (req, res) => {
   const refreshToken = cookies?.jwt;
 
   //to send new one we need to delete the old one first
-  res.clearCookie('jwt',{httpOnly:true, sameSite:"None"}) //add secure:true 
+  res.clearCookie('jwt',{httpOnly:true, sameSite:"None", secure:true}) //add secure:true 
 
   // find the user holds the same token in mongodb
   //  const result = await Users.findOneAndUpdate(
@@ -35,7 +35,7 @@ const handleRefreshTokenWithDBRotation = async (req, res) => {
          const hackedUser = await Users.findOne({username: decoded.username}) //now we getting the use from db and making all the rt if he/she has to null
          hackedUser.refreshToken = [];
          const result = await hackedUser.save();
-         console.log(result);
+        //  console.log(result);
       }
      )
     res.sendStatus(403);
@@ -43,6 +43,8 @@ const handleRefreshTokenWithDBRotation = async (req, res) => {
 
   //now the incomming token is present in db becz user found for the token, now we need to check if the token is valida if valid just give a new token else return 401 becz logout
   //  because it has the correct user, but still we need to remove the old token from the database in refreshToken array
+
+  console.log("found rt", foundUserWithRefreshToken, refreshToken)
   const newRefreshTokenArray = foundUserWithRefreshToken.refreshToken
                                                .filter(rt => rt !== refreshToken);
 
@@ -57,7 +59,8 @@ const handleRefreshTokenWithDBRotation = async (req, res) => {
       console.log("decodedname",decoded.username, "foundUserWithRefreshToken ",foundUserWithRefreshToken.username);
 
       if (err || foundUserWithRefreshToken.username !== decoded.username){
-        return res.sendStatus(401);
+        console.log("err in refresh", err.message);
+        return res.sendStatus(403);
       }
 
       //if Refresh token is still valid and user is correct, so now we can sendback a new rt and access token
@@ -72,22 +75,24 @@ const handleRefreshTokenWithDBRotation = async (req, res) => {
           }
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '15s' }
       );
 
       //new RT
       const newRefreshToken = jwt.sign(   //we only send username for checking, no roles
           {"username": foundUserWithRefreshToken.username},
           process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: '1d' }
+        { expiresIn: '35s' }
       );
 
       //saving refreshToken with current user
       foundUserWithRefreshToken.refreshToken = [...newRefreshTokenArray, newRefreshToken];
-      const result = foundUserWithRefreshToken.save();
+      const result = await foundUserWithRefreshToken.save();
+
+      console.log("result to save", result)
 
       //need to send back the cookie
-      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"None"}); // for thunderclinet secure:true not works
+      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 37 * 1000, sameSite:"None", secure:true}); // for thunderclinet secure:true not works
 
       res.json({ roles, accessToken });  //can send the roles in json to frontend
 

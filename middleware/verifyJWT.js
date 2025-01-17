@@ -5,7 +5,8 @@ require('dotenv').config();
 const verifyJWT = (req, res, next)=>{
   console.log(req.headers);
   //Bearer Token
-   const authHeader = req.headers.authorization || req.headers.authorization
+   const authHeader = req.headers.Authorization || req.headers.authorization
+   console.log("authHeader injwtVerify",authHeader)
    if(!authHeader?.startsWith('Bearer ')) return res.sendStatus(401); //not have token
    const token = authHeader.split(' ')[1] //Token
    jwt.verify(
@@ -18,6 +19,7 @@ const verifyJWT = (req, res, next)=>{
       
       req.user = decoded.userInfo.username;  //we have previously passed username to jwt
       req.roles = decoded.userInfo.roles
+      console.log("decoded")
       next(); 
     } 
    )

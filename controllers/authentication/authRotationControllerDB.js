@@ -46,13 +46,13 @@ const handleAuthRotationDB = async(req,res) =>{
           }
         },
          process.env.ACCESS_TOKEN_SECRET,
-         {expiresIn:'1h'}
+         {expiresIn:'15s'}
       );
 
       const newRefreshToken =  jwt.sign(
         {"username": foundUser.username},
          process.env.REFRESH_TOKEN_SECRET,
-         {expiresIn:'1d'}
+         {expiresIn:'35s'}
       );
 
       //if the incomming req may have access token due to vari0ous reasons such as 
@@ -64,6 +64,7 @@ const handleAuthRotationDB = async(req,res) =>{
 
        console.log("newArr", newRTArray);
             //this point we found auth is comming with some refreshToken, so need to detect reuse
+            
               // hackers may have stole rt and can use so need to check the validity 
             if(cookies?.jwt){
               const refreshToken = cookies.jwt;
@@ -93,7 +94,7 @@ const handleAuthRotationDB = async(req,res) =>{
          return res.status(501).json({"message":"error"})
       }
     
-      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 24 * 60 * 60 * 1000, sameSite:"None"}); // for thunderclinet secure:true not works
+      res.cookie('jwt', newRefreshToken, { httpOnly : true, maxAge: 400 * 1000, sameSite:"None", secure:true}); // for thunderclinet secure:true not works
       res.json({rolesCodes, accessToken});
 }
 

@@ -15,7 +15,7 @@ const verifyJWT = (req, res, next)=>{
     (err, decoded) =>{
       // here we recived token but it may have expired or tampered(so invalid token)
       console.log('err', err)
-      if(err) return res.sendStatus(401); 
+      if(err) return res.sendStatus(403); 
       
       req.user = decoded.userInfo.username;  //we have previously passed username to jwt
       req.roles = decoded.userInfo.roles
